@@ -6,6 +6,9 @@
     target_has_atomic = "64"
 ))]
 
+#[cfg(all(target_family = "wasm", not(target_os = "wasi")))]
+use wasm_bindgen_test::wasm_bindgen_test;
+
 use std::future::Future;
 use std::sync::{mpsc, Arc, Mutex};
 use std::task::Poll;
@@ -15,6 +18,13 @@ use tokio::macros::support::poll_fn;
 use tokio::runtime::{HistogramConfiguration, HistogramScale, LogHistogram, Runtime};
 use tokio::task::consume_budget;
 use tokio::time::{self, Duration};
+
+#[cfg(all(target_family = "wasm", not(target_os = "wasi")))]
+#[wasm_bindgen_test]
+fn num_workers_wasm() {
+    let rt = current_thread();
+    assert_eq!(1, rt.metrics().num_workers());
+}
 
 #[test]
 fn num_workers() {
