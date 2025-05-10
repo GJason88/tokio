@@ -30,6 +30,10 @@ name = "macros_select"
 name = "rt_yield"
 required-features = ["rt", "macros", "sync"]
 
+[[test]]
+name = "rt_wasm"
+required-features = ["rt"]
+
 [features]
 # For mem check
 rt-net = ["tokio/rt", "tokio/rt-multi-thread", "tokio/net"]
@@ -61,6 +65,9 @@ tokio-test = { version = "0.4", path = "../tokio-test", optional = true }
 doc-comment = "0.3.1"
 futures = { version = "0.3.0", features = ["async-await"] }
 bytes = "1.0.0"
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3.0"
 
 [lints]
 workspace = true
