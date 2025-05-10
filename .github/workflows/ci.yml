@@ -1014,6 +1014,9 @@ jobs:
       - name: test tokio
         run: wasm-pack test --node -- --features "macros sync"
         working-directory: tokio
+      - name: test tests-integration --features rt
+        run: wasm-pack test --node -- --test rt_wasm --features "rt"
+        working-directory: tests-integration
 
   wasm32-wasip1:
     name: ${{ matrix.target }}
